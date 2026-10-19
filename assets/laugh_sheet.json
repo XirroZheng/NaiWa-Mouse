@@ -1,0 +1,9 @@
+{
+  "file": "assets/laugh_sheet.png",
+  "frames": 176,
+  "frame_w": 121,
+  "frame_h": 160,
+  "cols": 16,
+  "rows": 11,
+  "duration_ms": 100
+}

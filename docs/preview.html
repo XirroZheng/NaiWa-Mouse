@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>鼠标皮肤 · 交互预览</title>
+<style>
+  :root{
+    --ink:#1b2430;
+    --muted:#64748b;
+    --accent:#2f7a5a;
+    --card:rgba(255,255,255,.82);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+    color:var(--ink);
+    background:linear-gradient(140deg,#f2f5fa 0%,#e6ecf5 45%,#dfe8f3 100%);
+    overflow:hidden;
+    cursor:none;               /* 真实指针隐藏，由角色代替 */
+    user-select:none;
+  }
+  .blob{position:fixed;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none}
+  .b1{width:520px;height:520px;left:-120px;top:-160px;background:#cfe3ff}
+  .b2{width:460px;height:460px;right:-100px;bottom:-140px;background:#ffe6b8}
+  .b3{width:380px;height:380px;right:22%;top:-120px;background:#d8f3e6}
+
+  .wrap{position:relative;height:100%;display:flex;align-items:center;justify-content:center;gap:26px;padding:32px}
+
+  .window{
+    width:min(620px,72vw);
+    background:var(--card);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:16px;
+    box-shadow:0 24px 60px -28px rgba(23,43,77,.35), 0 2px 8px rgba(23,43,77,.06);
+    padding:26px 30px 30px;
+  }
+  .win-bar{display:flex;gap:7px;margin-bottom:18px}
+  .dot{width:11px;height:11px;border-radius:50%;background:#e2e8f0}
+  .dot:nth-child(1){background:#f7b0a8}
+  .dot:nth-child(2){background:#f8d99a}
+  .dot:nth-child(3){background:#a8ddb8}
+  h1{font-size:19px;margin:0 0 6px;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 20px;line-height:1.6}
+  .rows{display:grid;gap:10px}
+  .row{
+    display:flex;align-items:center;gap:12px;
+    padding:11px 14px;border-radius:11px;
+    background:rgba(248,250,252,.9);
+    border:1px solid #e8eef6;
+    font-size:13.5px;
+  }
+  .row b{font-weight:600}
+  .row span{color:var(--muted)}
+  .kbd{
+    font-family:ui-monospace,Consolas,monospace;font-size:11.5px;
+    padding:3px 7px;border-radius:6px;background:#fff;
+    border:1px solid #dbe4ef;box-shadow:0 1px 0 #dbe4ef;color:#334155;
+  }
+  .row em{margin-left:auto;font-style:normal;color:var(--accent);font-weight:600;font-size:12.5px}
+
+  .side{width:230px;display:grid;gap:12px}
+  .panel{
+    background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.9);
+    border-radius:14px;padding:14px 16px;font-size:12.5px;color:var(--muted);line-height:1.7;
+  }
+  .panel b{color:var(--ink);display:block;font-size:13px;margin-bottom:4px}
+
+  #skin{
+    position:fixed;left:0;top:0;
+    height:22px;width:auto;
+    pointer-events:none;
+    z-index:99;
+    will-change:transform;
+    transform:translate(-50%,-50%);
+    filter:drop-shadow(0 2px 3px rgba(30,45,70,.22));
+  }
+  #badge{
+    position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
+    font-size:12px;letter-spacing:.08em;color:#475569;
+    background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.9);
+    padding:7px 16px;border-radius:999px;z-index:98;
+    box-shadow:0 8px 24px -14px rgba(23,43,77,.5);
+  }
+  #badge b{color:var(--accent)}
+
+  .toggle{
+    display:inline-block;margin-top:9px;padding:6px 12px;border-radius:8px;
+    font:inherit;font-size:12px;cursor:pointer;
+    background:#fff;border:1px solid #dbe4ef;color:#334155;
+    box-shadow:0 1px 0 #dbe4ef;
+  }
+  .toggle.on{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:none}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<div class="wrap">
+  <div class="window">
+    <div class="win-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
+    <h1>桌面鼠标皮肤 · 实时预览</h1>
+    <p class="sub">移动鼠标——角色就是指针。素材已做透明抠图，边缘会柔和地叠在内容上。</p>
+    <div class="rows">
+      <div class="row"><b>默认</b><span>不按键</span><em>glimpse</em></div>
+      <div class="row"><b>左键</b><span>单击或长按</span><em>left_hand</em></div>
+      <div class="row"><b>右键</b><span>按住</span><em>thinking</em></div>
+      <div class="row"><b>等待</b><span>系统转圈时</span><em>laugh · 动画</em></div>
+    </div>
+  </div>
+
+  <div class="side">
+    <div class="panel">
+      <b>试一下</b>
+      按住左键会举手，按住右键会托腮思考，松开后回到默认的小家伙。
+    </div>
+    <div class="panel" style="padding-bottom:12px">
+      <b>等待状态</b>
+      系统显示转圈圈（忙碌光标）时，角色会切成笑到打滚的动画。
+      <button id="busyBtn" class="toggle">模拟忙碌</button>
+    </div>
+    <div class="panel">
+      <b>桌面版</b>
+      双击 <span class="kbd">run.bat</span> 即可替换真实系统指针，
+      <span class="kbd">Ctrl</span>+<span class="kbd">Alt</span>+<span class="kbd">Q</span> 退出。
+    </div>
+  </div>
+</div>
+
+<img id="skin" src="../assets/glimpse.png" alt="">
+<div id="badge">当前状态：<b id="stateName">默认</b></div>
+
+<script>
+const POSES = {
+  idle:  { src: '../assets/glimpse.png',       h: 22, anchor: 'center', label: '默认 · glimpse' },
+  left:  { src: '../assets/left_hand.png',     h: 22, anchor: 'bottom', label: 'left_hand' },
+  right: { src: '../assets/thinking.png',      h: 22, anchor: 'bottom', label: 'thinking' },
+  wait:  { src: '../assets/laugh_preview.png', h: 24, anchor: 'center', label: '等待 · laugh' },
+};
+const TIMING = { left: 90, right: 550 };
+
+const skin = document.getElementById('skin');
+const badge = document.getElementById('stateName');
+const busyBtn = document.getElementById('busyBtn');
+
+let state = 'idle';
+let busy = false;
+let mx = innerWidth / 2, my = innerHeight / 2;
+let idleTimer = null;
+let pending = false;
+
+const SHIFT = { center: '-50%,-50%', bottom: '-50%,-100%' };
+
+function restState() {
+  return busy ? 'wait' : 'idle';
+}
+
+function apply() {
+  const p = POSES[state];
+  skin.style.height = p.h + 'px';
+  skin.style.transform = `translate(${SHIFT[p.anchor]}) translate(${mx}px, ${my}px)`;
+  // 注意：transform 的百分比基于自身尺寸，translate 组合顺序要先百分位后像素
+}
+
+function setState(next) {
+  if (state === next) return;
+  state = next;
+  skin.src = POSES[next].src;
+  badge.textContent = POSES[next].label;
+  apply();
+}
+
+function follow(x, y) {
+  mx = x; my = y;
+  if (pending) return;
+  pending = true;
+  requestAnimationFrame(() => { pending = false; apply(); });
+}
+
+skin.addEventListener('load', apply);
+
+addEventListener('pointermove', e => follow(e.clientX, e.clientY));
+
+addEventListener('pointerdown', e => {
+  clearTimeout(idleTimer);
+  idleTimer = null;
+  follow(e.clientX, e.clientY);
+  if (e.button === 0) setState('left');
+  else if (e.button === 2) setState('right');
+});
+
+addEventListener('pointerup', e => {
+  if (e.button !== 0 && e.button !== 2) return;
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    idleTimer = null;
+    setState(restState());
+  }, e.button === 0 ? TIMING.left : TIMING.right);
+});
+
+busyBtn.addEventListener('click', () => {
+  busy = !busy;
+  busyBtn.classList.toggle('on', busy);
+  busyBtn.textContent = busy ? '结束忙碌' : '模拟忙碌';
+  if (!idleTimer) setState(restState());
+});
+// 别让点按钮顺带触发"左键"姿态
+busyBtn.addEventListener('pointerdown', e => e.stopPropagation());
+busyBtn.addEventListener('pointerup', e => e.stopPropagation());
+
+addEventListener('contextmenu', e => e.preventDefault());
+addEventListener('blur', () => setState(restState()));
+
+apply();
+</script>
+</body>
+</html>

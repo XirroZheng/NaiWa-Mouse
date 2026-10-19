@@ -1,0 +1,55 @@
+{
+  "mode": "full",
+  "modes": {
+    "minimal": {
+      "asset": "default.png",
+      "height": 22,
+      "anchor": "center",
+      "press_offset": 0
+    },
+    "full": {
+      "others_scale": 1.2
+    }
+  },
+  "states": {
+    "idle": {
+      "asset": "glimpse.png",
+      "height": 22,
+      "anchor": "center",
+      "press_offset": 0
+    },
+    "left": {
+      "asset": "left_hand.png",
+      "height": 22,
+      "anchor": "bottom",
+      "press_offset": 1
+    },
+    "right": {
+      "asset": "thinking.png",
+      "height": 22,
+      "anchor": "bottom",
+      "press_offset": 0
+    },
+    "wait": {
+      "sheet": "laugh_sheet.png",
+      "scale": 1.1,
+      "anchor": "center",
+      "press_offset": 0
+    }
+  },
+  "timing": {
+    "fps": 60,
+    "idle_after_left_ms": 90,
+    "idle_after_right_ms": 320
+  },
+  "cursor": {
+    "hide_system_cursor": true,
+    "hotspot_dot": false
+  },
+  "hotkeys": {
+    "quit": "Ctrl+Alt+Q",
+    "toggle_cursor": "Ctrl+Alt+H",
+    "toggle_skin": "Ctrl+Alt+S"
+  },
+  "auto_dpi_scale": true
+}
